@@ -5,4 +5,22 @@
 	  <TargetFramework>net6.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
+	<Target Name="Workaround2281"
+	        AfterTargets="MarkupCompilePass1"
+	        BeforeTargets="CoreCompile"
+	        Condition="Exists('$(IntermediateOutputPath)GeneratedInternalTypeHelper.g.cs')">
+		<ItemGroup>
+			<Compile Remove="$(MSBuildProjectDirectory)\$(IntermediateOutputPath)GeneratedInternalTypeHelper.g.cs" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="Workaround2281_Part2"
+	        AfterTargets="MarkupCompilePass2"
+	        BeforeTargets="CoreCompile"
+	        Condition="Exists('$(IntermediateOutputPath)GeneratedInternalTypeHelper.g.cs')">
+		<ItemGroup>
+			<Compile Remove="$(MSBuildProjectDirectory)\$(IntermediateOutputPath)GeneratedInternalTypeHelper.g.cs" />
+		</ItemGroup>
+	</Target>
 </Project>
